@@ -53,19 +53,19 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         final String token = header.split(" ")[1].trim();
 
         // Get jwt token and validate
-        String username = jwtTokenUtil.getUsername(token);
-        if (!jwtTokenUtil.validate(token) || userSessions.get(username) == null || userSessions.get(username).isEmpty()) {
+        if (!jwtTokenUtil.validate(token) || userSessions.get(jwtTokenUtil.getUsername(token)) == null
+                || userSessions.get(jwtTokenUtil.getUsername(token)).isEmpty()) {
             chain.doFilter(request, response);
             return;
         }
 
         if(request.getRequestURI().contains("logout")){
-            userSessions.get(username).clear();
+            userSessions.get(jwtTokenUtil.getUsername(token)).clear();
         }
 
         // Get user identity and set it on the spring security context
         UserDetails userDetails = userRepository
-                .findByUsername(username)
+                .findByUsername(jwtTokenUtil.getUsername(token))
                 .orElse(null);
 
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
