@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,6 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.ValidationException;
 import java.util.*;
 
+/**
+ * Handling cxceptions that can happen during the flow of the application.
+ * If the exception is not mapped, they will be handled by default with the handleInternalServerError method
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -64,6 +69,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(new ApiCallException<>("Something wrong with your request", Collections.singletonList(ex.getMessage())));
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ApiCallException<String>> handleBadCredentials(HttpServletRequest request, Exception ex) {
+        logger.error("handle BadCredentialsException {}\n", request.getRequestURI(), ex);
+
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(new ApiCallException<>("he login you are trying to make does not exist or the credentials are not correct", Collections.singletonList(ex.getMessage())));
     }
 
     @ExceptionHandler(Exception.class)

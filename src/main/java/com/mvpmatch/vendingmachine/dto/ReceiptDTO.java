@@ -13,7 +13,7 @@ public class ReceiptDTO {
     private BigDecimal depositedAmountBeforePurchase;
     private BigDecimal yourChangeInCents;
 
-    private Map<COINS, Integer> yourChange = new LinkedHashMap<>();
+    private final Map<COINS, Integer> yourChange = new LinkedHashMap<>();
 
     /**
      * Can be one of the following

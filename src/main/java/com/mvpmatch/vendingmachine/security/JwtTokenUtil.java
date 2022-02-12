@@ -14,16 +14,15 @@ import static java.lang.String.format;
 public class JwtTokenUtil {
 
     static final String jwtSecret = "zdtlD3JK56m6wTTgsNFhqzjqP";
-    private final String jwtIssuer = "thevendingmachine.adriel";
 
     private final Logger logger = LoggerFactory.getLogger(JwtTokenUtil.class);
 
     public String generateAccessToken(User user) {
         return Jwts.builder()
                 .setSubject(format("%s,%s", user.getId(), user.getUsername()))
-                .setIssuer(jwtIssuer)
+                .setIssuer("thevendingmachine.adriel")
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 5 * 60 * 1000)) // 5 minute
+                .setExpiration(new Date(System.currentTimeMillis() + 5 * 60 * 1000)) // 5 minutes
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }

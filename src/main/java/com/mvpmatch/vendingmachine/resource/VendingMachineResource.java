@@ -5,6 +5,7 @@ import com.mvpmatch.vendingmachine.dto.DepositDTO;
 import com.mvpmatch.vendingmachine.dto.ProductDTO;
 import com.mvpmatch.vendingmachine.dto.PurchaseDTO;
 import com.mvpmatch.vendingmachine.dto.ReceiptDTO;
+import com.mvpmatch.vendingmachine.enums.COINS;
 import com.mvpmatch.vendingmachine.exception.BadRequestException;
 import com.mvpmatch.vendingmachine.service.DepositService;
 import com.mvpmatch.vendingmachine.service.ProductService;
@@ -34,7 +35,11 @@ public class VendingMachineResource {
     private DepositService depositService;
 
     private static final List<BigDecimal> allowedCoins = Arrays.asList(
-            BigDecimal.valueOf(5), BigDecimal.valueOf(10), BigDecimal.valueOf(20), BigDecimal.valueOf(50), BigDecimal.valueOf(100)
+            COINS.CENTS_5.getAmount(),
+            COINS.CENTS_10.getAmount(),
+            COINS.CENTS_20.getAmount(),
+            COINS.CENTS_50.getAmount(),
+            COINS.CENTS_100.getAmount()
     );
 
     @GetMapping
@@ -76,7 +81,7 @@ public class VendingMachineResource {
     @RolesAllowed(Role.BUYER)
     @PostMapping("/reset")
     public ResponseEntity<String> resetDeposit() {
-        return new ResponseEntity<>(depositService.resetForCurrentClient(), HttpStatus.OK);
+        return new ResponseEntity<>("Your deposit is reset to 0. You should have received your money back if you had any deposited\n" + depositService.resetForCurrentUser(), HttpStatus.OK);
     }
 
 
@@ -99,7 +104,7 @@ public class VendingMachineResource {
         LOGGER.debug("Request for updating a product");
 
         if (productDTO.getId() == null) {
-            throw new BadRequestException("To update and item we need the Id");
+            throw new BadRequestException("To update and item we need the id");
         }
 
         ProductDTO updatedProduct = productService.update(productDTO);

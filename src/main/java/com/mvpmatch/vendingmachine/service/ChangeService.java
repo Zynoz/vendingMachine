@@ -19,11 +19,11 @@ public class ChangeService {
         receiptDTO.setYourChangeInCents(restToGiveToUserInCents);
 
         while (restToGiveToUserInCents.compareTo(BigDecimal.ZERO) > 0) {
-            restToGiveToUserInCents = getReturn(cashArr, restToGiveToUserInCents, 100, 4);
-            restToGiveToUserInCents = getReturn(cashArr, restToGiveToUserInCents, 50, 3);
-            restToGiveToUserInCents = getReturn(cashArr, restToGiveToUserInCents, 20, 2);
-            restToGiveToUserInCents = getReturn(cashArr, restToGiveToUserInCents, 10, 1);
-            restToGiveToUserInCents = getReturn(cashArr, restToGiveToUserInCents, 5, 0);
+            restToGiveToUserInCents = getReturn(cashArr, restToGiveToUserInCents, COINS.CENTS_100, 4);
+            restToGiveToUserInCents = getReturn(cashArr, restToGiveToUserInCents, COINS.CENTS_50, 3);
+            restToGiveToUserInCents = getReturn(cashArr, restToGiveToUserInCents, COINS.CENTS_20, 2);
+            restToGiveToUserInCents = getReturn(cashArr, restToGiveToUserInCents, COINS.CENTS_10, 1);
+            restToGiveToUserInCents = getReturn(cashArr, restToGiveToUserInCents, COINS.CENTS_5, 0);
 
         }
 
@@ -34,9 +34,9 @@ public class ChangeService {
         receiptDTO.putChange(COINS.CENTS_5, cashArr[0]);
     }
 
-    private static BigDecimal getReturn(int[] cashArr, BigDecimal restToGiveToUser, double v, int position) {
-        while (restToGiveToUser.compareTo(BigDecimal.valueOf(v)) >= 0) {
-            restToGiveToUser = restToGiveToUser.subtract(BigDecimal.valueOf(v));
+    private static BigDecimal getReturn(int[] cashArr, BigDecimal restToGiveToUser, COINS coin, int position) {
+        while (restToGiveToUser.compareTo(coin.getAmount()) >= 0) {
+            restToGiveToUser = restToGiveToUser.subtract(coin.getAmount());
             cashArr[position]++;
         }
         return restToGiveToUser;

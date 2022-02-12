@@ -1,10 +1,14 @@
 package com.mvpmatch.vendingmachine.domain;
 
+import com.mvpmatch.vendingmachine.dto.ProductDTO;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Entity
 public class Product {
+    private static final BigDecimal DOLLAR_TO_CENT_CONVERSION_RATE = BigDecimal.valueOf(100);
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,5 +60,19 @@ public class Product {
 
     public void setSeller(User seller) {
         this.seller = seller;
+    }
+
+    /**
+     * Setting the cost of the product. There can be cases when a seller is selling a product with 1.5, which means that
+     * the product is 1 Dollar and 50 cents. We are setting that the cost is 150 cents because a buyer can only buy by inserting
+     * cents
+     *
+     */
+    public void setCostInCents(ProductDTO productDTO) {
+        BigDecimal costInCents = productDTO.getCostInCents().setScale(2, RoundingMode.CEILING);
+        if (costInCents.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) > 0) {
+            costInCents = costInCents.multiply(DOLLAR_TO_CENT_CONVERSION_RATE);
+        }
+        this.setCost(costInCents);
     }
 }

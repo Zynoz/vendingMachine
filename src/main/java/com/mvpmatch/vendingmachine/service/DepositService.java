@@ -2,6 +2,7 @@ package com.mvpmatch.vendingmachine.service;
 
 import com.mvpmatch.vendingmachine.domain.Deposit;
 import com.mvpmatch.vendingmachine.domain.VendingMachine;
+import com.mvpmatch.vendingmachine.dto.DepositDTO;
 import com.mvpmatch.vendingmachine.repository.DepositRepository;
 import com.mvpmatch.vendingmachine.repository.VendingMachineRepository;
 import com.mvpmatch.vendingmachine.session.SessionService;
@@ -66,7 +67,7 @@ public class DepositService {
         return depositRepository.findByUserId(id);
     }
 
-    public BigDecimal updateClientDeposit(BigDecimal totalSpent) {
+    public BigDecimal substractFromUserDeposit(BigDecimal totalSpent) {
         if (!getCurrentUserDeposit().isPresent()) {
             return BigDecimal.ZERO;
         }
@@ -78,15 +79,14 @@ public class DepositService {
         return valueLeftInDeposit;
     }
 
-    public String resetForCurrentClient() {
+    public DepositDTO resetForCurrentUser() {
         Optional<Deposit> currentUserDeposit = getCurrentUserDeposit();
-        if (!currentUserDeposit.isPresent()) {
-            return "You didn't had any deposit yet.";
+        if (currentUserDeposit.isPresent()) {
+            currentUserDeposit.get().setDepositAmount(BigDecimal.ZERO);
+            Deposit savedDeposit = depositRepository.save(currentUserDeposit.get());
+            return new DepositDTO(savedDeposit.getId(), savedDeposit.getDepositAmount());
         }
 
-        currentUserDeposit.get().setDepositAmount(BigDecimal.ZERO);
-        depositRepository.save(currentUserDeposit.get());
-
-        return "Your deposit is reset to 0. You should have received your money back if you had any deposited";
+        return new DepositDTO();
     }
 }

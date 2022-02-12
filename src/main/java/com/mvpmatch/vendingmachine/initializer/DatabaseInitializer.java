@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Initializing the database with all the ROLES and with one VendingMachine
+ */
 @Component
 public class DatabaseInitializer implements ApplicationListener<ApplicationReadyEvent> {
 

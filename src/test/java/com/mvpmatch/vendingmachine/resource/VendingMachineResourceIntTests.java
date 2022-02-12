@@ -1,4 +1,4 @@
-package com.mvpmatch.vendingmachine.service;
+package com.mvpmatch.vendingmachine.resource;
 
 import com.mvpmatch.vendingmachine.IntegrationTest;
 import com.mvpmatch.vendingmachine.domain.Deposit;
@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
+import java.util.Collections;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -36,8 +36,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class VendingMachineResourceIntTests {
 
-    User buyer = new User("buyer", "test", Arrays.asList(new Role(Role.RoleType.BUYER)));
-    User seller = new User("seller", "test", Arrays.asList(new Role(Role.RoleType.SELLER)));
+    User buyer = new User("buyer", "test", Collections.singletonList(new Role(Role.RoleType.BUYER)));
+    User seller = new User("seller", "test", Collections.singletonList(new Role(Role.RoleType.SELLER)));
 
     @Autowired
     private WebApplicationContext context;
@@ -61,7 +61,6 @@ public class VendingMachineResourceIntTests {
                 .build();
 
     }
-
 
     @Test
     void testNonAuthenticatedUser() throws Exception {

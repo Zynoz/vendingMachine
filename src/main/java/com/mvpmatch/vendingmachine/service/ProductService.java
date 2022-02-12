@@ -1,7 +1,6 @@
 package com.mvpmatch.vendingmachine.service;
 
 
-import com.mvpmatch.vendingmachine.domain.Deposit;
 import com.mvpmatch.vendingmachine.domain.Product;
 import com.mvpmatch.vendingmachine.domain.User;
 import com.mvpmatch.vendingmachine.dto.ProductDTO;
@@ -67,9 +66,14 @@ public class ProductService {
      * @throws BadRequestException if the product does not exist or the seller is not allowed to update this product
      */
     public ProductDTO update(ProductDTO productDTO) throws BadRequestException {
-
         Product theProduct = productExistAndIsOfCurrentUser(productDTO);
-        productMapper.update(theProduct, productDTO);
+        if (productDTO.getName() != null) {
+            theProduct.setName(productDTO.getName());
+        }
+
+        if (productDTO.getCostInCents() != null) {
+            theProduct.setCostInCents(productDTO);
+        }
 
         return productMapper.mapToDTO(productsRepository.save(theProduct));
     }
@@ -104,8 +108,6 @@ public class ProductService {
      */
     public ReceiptDTO buyProducts(PurchaseDTO purchaseDTO) throws BadRequestException {
 
-        BigDecimal depositedAmount = depositService.getCurrentUserDepositedAmount();
-
         Optional<Product> byId = productsRepository.findById(purchaseDTO.getProductId());
         if (!byId.isPresent()) {
             throw new BadRequestException(String.format("The product with id %s does not exist", purchaseDTO.getProductId()));
@@ -119,6 +121,7 @@ public class ProductService {
         BigDecimal totalSpent = product.getCost()
                 .multiply(BigDecimal.valueOf(purchaseDTO.getAmount()));
 
+        BigDecimal depositedAmount = depositService.getCurrentUserDepositedAmount();
         if (depositedAmount.compareTo(totalSpent) < 0) {
             throw new BadRequestException(
                     String.format("You don't have enough money deposited. Total cost would be %s but you have %s",
@@ -128,7 +131,7 @@ public class ProductService {
 
         updateProductAmount(purchaseDTO, product);
 
-        BigDecimal valueLeftInDeposit = depositService.updateClientDeposit(totalSpent);
+        BigDecimal valueLeftInDeposit = depositService.substractFromUserDeposit(totalSpent);
 
         ReceiptDTO receiptDTO = new ReceiptDTO();
         receiptDTO.setDepositedAmountBeforePurchase(depositedAmount);
@@ -144,13 +147,6 @@ public class ProductService {
         product.setAmountAvailable(product.getAmountAvailable() - purchaseDTO.getAmount());
 
         productsRepository.save(product);
-    }
-
-    private BigDecimal updateClientDeposit(Deposit deposit, BigDecimal totalSpent) {
-        BigDecimal valueLeftInDeposit = deposit.getDepositAmount().subtract(totalSpent);
-        deposit.setDepositAmount(valueLeftInDeposit);
-        depositRepository.save(deposit);
-        return valueLeftInDeposit;
     }
 
     public void deleteProductsForSellerWithId(long id) {
