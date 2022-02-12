@@ -37,7 +37,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private UserRepository userRepository;
 
 
-    private static Map<String, List<String>> userSessions = new HashMap<>();
+    private static final Map<String, List<String>> userSessions = new HashMap<>();
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,

@@ -11,6 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@SpringBootTest(classes = VendingmachineApplication.class)
+@SpringBootTest(classes = VendingMachineApplication.class)
 public @interface IntegrationTest {
 }

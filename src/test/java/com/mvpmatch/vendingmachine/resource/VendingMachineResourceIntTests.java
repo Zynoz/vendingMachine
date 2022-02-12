@@ -7,7 +7,6 @@ import com.mvpmatch.vendingmachine.domain.Role;
 import com.mvpmatch.vendingmachine.domain.User;
 import com.mvpmatch.vendingmachine.repository.DepositRepository;
 import com.mvpmatch.vendingmachine.repository.ProductsRepository;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -15,15 +14,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.math.BigDecimal;
 import java.util.Collections;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -36,11 +32,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class VendingMachineResourceIntTests {
 
-    User buyer = new User("buyer", "test", Collections.singletonList(new Role(Role.RoleType.BUYER)));
-    User seller = new User("seller", "test", Collections.singletonList(new Role(Role.RoleType.SELLER)));
-
-    @Autowired
-    private WebApplicationContext context;
+    final User buyer = new User("buyer", "test", Collections.singletonList(new Role(Role.RoleType.BUYER)));
+    final User seller = new User("seller", "test", Collections.singletonList(new Role(Role.RoleType.SELLER)));
 
     @Autowired
     private MockMvc restAccountMockMvc;
@@ -50,17 +43,6 @@ public class VendingMachineResourceIntTests {
 
     @Autowired
     private DepositRepository depositRepository;
-
-    private MockMvc mvc;
-
-    @Before
-    public void setup() {
-        mvc = MockMvcBuilders
-                .webAppContextSetup(context)
-                .apply(springSecurity())
-                .build();
-
-    }
 
     @Test
     void testNonAuthenticatedUser() throws Exception {
@@ -217,7 +199,7 @@ public class VendingMachineResourceIntTests {
         newProduct.setAmountAvailable(10);
         newProduct.setName("Coca - Cola");
         newProduct.setCost(BigDecimal.valueOf(10));
-        newProduct = productsRepository.save(newProduct);
+        productsRepository.save(newProduct);
 
         Deposit entity = new Deposit();
         entity.setDepositAmount(BigDecimal.valueOf(20));

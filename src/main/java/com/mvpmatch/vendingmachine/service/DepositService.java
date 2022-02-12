@@ -67,7 +67,7 @@ public class DepositService {
         return depositRepository.findByUserId(id);
     }
 
-    public BigDecimal substractFromUserDeposit(BigDecimal totalSpent) {
+    public BigDecimal subtractFromUserDeposit(BigDecimal totalSpent) {
         if (!getCurrentUserDeposit().isPresent()) {
             return BigDecimal.ZERO;
         }

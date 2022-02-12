@@ -15,7 +15,7 @@ import javax.validation.ValidationException;
 import java.util.*;
 
 /**
- * Handling cxceptions that can happen during the flow of the application.
+ * Handling exceptions that can happen during the flow of the application.
  * If the exception is not mapped, they will be handled by default with the handleInternalServerError method
  */
 @ControllerAdvice

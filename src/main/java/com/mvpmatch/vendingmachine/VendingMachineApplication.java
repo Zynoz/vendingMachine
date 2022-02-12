@@ -3,12 +3,10 @@ package com.mvpmatch.vendingmachine;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
-import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 
 @SpringBootApplication
-public class VendingmachineApplication {
+public class VendingMachineApplication {
 
     /**
      * Setting the default prefix to be empty for when checking for roles.
@@ -21,7 +19,7 @@ public class VendingmachineApplication {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(VendingmachineApplication.class, args);
+        SpringApplication.run(VendingMachineApplication.class, args);
     }
 
 }

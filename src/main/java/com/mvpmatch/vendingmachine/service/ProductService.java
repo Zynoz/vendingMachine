@@ -131,7 +131,7 @@ public class ProductService {
 
         updateProductAmount(purchaseDTO, product);
 
-        BigDecimal valueLeftInDeposit = depositService.substractFromUserDeposit(totalSpent);
+        BigDecimal valueLeftInDeposit = depositService.subtractFromUserDeposit(totalSpent);
 
         ReceiptDTO receiptDTO = new ReceiptDTO();
         receiptDTO.setDepositedAmountBeforePurchase(depositedAmount);

@@ -97,7 +97,7 @@ public class DepositServiceUnitTest {
     }
 
     @Test
-    public void test_substractFromUserDeposit_WithExistingDeposit_returnsCorrectSum() {
+    public void test_subtractFromUserDeposit_WithExistingDeposit_returnsCorrectSum() {
         Mockito.when(sessionService.getCurrentUserLoggedIn())
                 .thenReturn(authenticatedUser);
 
@@ -105,7 +105,7 @@ public class DepositServiceUnitTest {
         Mockito.when(mockDepositRepository.findByUserId(1L))
                 .thenReturn(Optional.of(userDeposit));
 
-        assertThat(depositService.substractFromUserDeposit(BigDecimal.ONE)).isEqualTo(BigDecimal.valueOf(9));
+        assertThat(depositService.subtractFromUserDeposit(BigDecimal.ONE)).isEqualTo(BigDecimal.valueOf(9));
 
     }
 
