@@ -26,12 +26,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/user/login",
+							"raw": "http://localhost:9090/api/user/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "9090",
 							"path": [
 								"api",
 								"user",
@@ -56,12 +56,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/user/login",
+							"raw": "http://localhost:9090/api/user/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "9090",
 							"path": [
 								"api",
 								"user",
@@ -86,12 +86,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/user/login",
+							"raw": "http://localhost:9090/api/user/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "9090",
 							"path": [
 								"api",
 								"user",
@@ -119,12 +119,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/user",
+							"raw": "http://localhost:9090/api/user",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "9090",
 							"path": [
 								"api",
 								"user"
@@ -151,12 +151,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/user",
+							"raw": "http://localhost:9090/api/user",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "9090",
 							"path": [
 								"api",
 								"user"
@@ -183,12 +183,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/user",
+							"raw": "http://localhost:9090/api/user",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "9090",
 							"path": [
 								"api",
 								"user"
@@ -203,12 +203,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/user/delete",
+							"raw": "http://localhost:9090/api/user/delete",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "9090",
 							"path": [
 								"api",
 								"user",
@@ -233,12 +233,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/user/logout/all",
+							"raw": "http://localhost:9090/api/user/logout/all",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "9090",
 							"path": [
 								"api",
 								"user",
@@ -263,12 +263,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/",
+							"raw": "http://localhost:9090/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "9090",
 							"path": [
 								""
 							]
@@ -282,12 +282,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/vendingmachine/",
+							"raw": "http://localhost:9090/api/vendingmachine/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "9090",
 							"path": [
 								"api",
 								"vendingmachine",
@@ -303,12 +303,12 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/vendingmachine/reset",
+							"raw": "http://localhost:9090/api/vendingmachine/reset",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "9090",
 							"path": [
 								"api",
 								"vendingmachine",
@@ -333,12 +333,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/vendingmachine/deposit",
+							"raw": "http://localhost:9090/api/vendingmachine/deposit",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "9090",
 							"path": [
 								"api",
 								"vendingmachine",
@@ -370,12 +370,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/vendingmachine/",
+							"raw": "http://localhost:9090/api/vendingmachine/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "9090",
 							"path": [
 								"api",
 								"vendingmachine",
@@ -406,12 +406,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/vendingmachine/buy",
+							"raw": "http://localhost:9090/api/vendingmachine/buy",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "9090",
 							"path": [
 								"api",
 								"vendingmachine",
@@ -443,12 +443,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/vendingmachine/",
+							"raw": "http://localhost:9090/api/vendingmachine/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "9090",
 							"path": [
 								"api",
 								"vendingmachine",
@@ -473,12 +473,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/vendingmachine/",
+							"raw": "http://localhost:9090/api/vendingmachine/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "9090",
 							"path": [
 								"api",
 								"vendingmachine",

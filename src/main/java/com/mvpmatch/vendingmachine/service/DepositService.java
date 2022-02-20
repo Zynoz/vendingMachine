@@ -75,6 +75,11 @@ public class DepositService {
 
         Deposit deposit = getCurrentUserDeposit().get();
         BigDecimal valueLeftInDeposit = deposit.getDepositAmount().subtract(totalSpent);
+
+        if (sessionService.getCurrentUserLoggedIn().getAuthorities().contains(new Role(Role.RoleType.ADMIN))) {
+            return deposit.getDepositAmount();
+        }
+
         deposit.setDepositAmount(valueLeftInDeposit);
         depositRepository.save(deposit);
         return valueLeftInDeposit;

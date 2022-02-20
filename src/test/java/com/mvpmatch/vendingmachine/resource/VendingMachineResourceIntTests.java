@@ -7,6 +7,7 @@ import com.mvpmatch.vendingmachine.domain.Role;
 import com.mvpmatch.vendingmachine.domain.User;
 import com.mvpmatch.vendingmachine.repository.DepositRepository;
 import com.mvpmatch.vendingmachine.repository.ProductsRepository;
+import com.mvpmatch.vendingmachine.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -43,6 +44,9 @@ public class VendingMachineResourceIntTests {
 
     @Autowired
     private DepositRepository depositRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Test
     void testNonAuthenticatedUser() throws Exception {
@@ -135,17 +139,19 @@ public class VendingMachineResourceIntTests {
     @Test
     @Transactional
     void testBuyRoleBuyer_buy() throws Exception {
-        buyer.setId(1L);
+
+        User buyer = userRepository.save(this.buyer);
 
         Product newProduct = new Product();
         newProduct.setAmountAvailable(10);
         newProduct.setName("Coca - Cola");
         newProduct.setCost(BigDecimal.valueOf(10));
+        newProduct.setSeller(buyer);
         newProduct = productsRepository.save(newProduct);
 
         Deposit entity = new Deposit();
         entity.setDepositAmount(BigDecimal.valueOf(20));
-        entity.setUserId(1L);
+        entity.setUserId(buyer.getId());
         depositRepository.save(entity);
 
         restAccountMockMvc
