@@ -20,7 +20,8 @@ public class DatabaseInitializer implements ApplicationListener<ApplicationReady
 
     private final List<Role.RoleType> roles = Arrays.asList(
             Role.RoleType.BUYER,
-            Role.RoleType.SELLER
+            Role.RoleType.SELLER,
+            Role.RoleType.ADMIN
     );
 
     @Autowired

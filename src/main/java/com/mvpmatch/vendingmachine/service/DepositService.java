@@ -1,6 +1,7 @@
 package com.mvpmatch.vendingmachine.service;
 
 import com.mvpmatch.vendingmachine.domain.Deposit;
+import com.mvpmatch.vendingmachine.domain.Role;
 import com.mvpmatch.vendingmachine.domain.VendingMachine;
 import com.mvpmatch.vendingmachine.dto.DepositDTO;
 import com.mvpmatch.vendingmachine.repository.DepositRepository;
@@ -88,5 +89,12 @@ public class DepositService {
         }
 
         return new DepositDTO();
+    }
+
+    public BigDecimal depositIntoDeposit(Deposit deposit, BigDecimal earned) {
+        BigDecimal sum = deposit.getDepositAmount().add(earned);
+        deposit.setDepositAmount(sum);
+        depositRepository.save(deposit);
+        return sum;
     }
 }

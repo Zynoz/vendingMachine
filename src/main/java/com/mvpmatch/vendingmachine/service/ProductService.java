@@ -1,7 +1,9 @@
 package com.mvpmatch.vendingmachine.service;
 
 
+import com.mvpmatch.vendingmachine.domain.Deposit;
 import com.mvpmatch.vendingmachine.domain.Product;
+import com.mvpmatch.vendingmachine.domain.Role;
 import com.mvpmatch.vendingmachine.domain.User;
 import com.mvpmatch.vendingmachine.dto.ProductDTO;
 import com.mvpmatch.vendingmachine.dto.PurchaseDTO;
@@ -122,17 +124,19 @@ public class ProductService {
                 .multiply(BigDecimal.valueOf(purchaseDTO.getAmount()));
 
         BigDecimal depositedAmount = depositService.getCurrentUserDepositedAmount();
-        if (depositedAmount.compareTo(totalSpent) < 0) {
-            throw new BadRequestException(
-                    String.format("You don't have enough money deposited. Total cost would be %s but you have %s",
-                            totalSpent, depositedAmount)
-            );
-        }
+            if (depositedAmount.compareTo(totalSpent) < 0) {
+                throw new BadRequestException(
+                        String.format("You don't have enough money deposited. Total cost would be %s but you have %s",
+                                totalSpent, depositedAmount)
+                );
+            }
 
         updateProductAmount(purchaseDTO, product);
 
         BigDecimal valueLeftInDeposit = depositService.subtractFromUserDeposit(totalSpent);
 
+        Optional<Deposit> depoist = depositRepository.findByUserId(product.getSeller().getId());
+        depoist.ifPresent(deposit -> depositService.depositIntoDeposit(deposit, totalSpent));
         ReceiptDTO receiptDTO = new ReceiptDTO();
         receiptDTO.setDepositedAmountBeforePurchase(depositedAmount);
         receiptDTO.setPurchasedProduct(product.getName());

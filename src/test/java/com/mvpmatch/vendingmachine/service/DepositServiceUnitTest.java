@@ -129,4 +129,12 @@ public class DepositServiceUnitTest {
         assertThat(resetForCurrentUser.getId()).isEqualTo(1L);
     }
 
+    @Test
+    public void test_depositIntoDeposit() {
+        Deposit d = new Deposit();
+        d.setDepositAmount(BigDecimal.valueOf(10));
+        depositService.depositIntoDeposit(d, BigDecimal.valueOf(10));
+        assertThat(d.getDepositAmount()).isEqualTo(BigDecimal.valueOf(20));
+    }
+
 }
